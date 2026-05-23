@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9EJXJQ2210"></script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag(){
+      dataLayer.push(arguments);
+  }
+
+  gtag('js', new Date());
+
+  gtag('config', 'G-9EJXJQ2210');
+</script>
+
+    <meta charset="UTF-8">
+    <title>CampusKit | Student Tools That Save Time</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="/" class="logo">CampusKit</a>
+    <a href="#about" class="nav-btn">About Me</a>
+</nav>
+
+<section class="hero">
+    <div class="hero-content">
+        <span class="badge">Built for Pakistani Students</span>
+        <h1>Prepare assignments faster, cleaner, and stress-free.</h1>
+        <p>
+            Generate cover pages, merge PDFs, compress files, and handle academic submissions from one simple student toolkit.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="/cover-page" class="primary-btn">Generate Cover Page</a>
+            <a href="#tools" class="secondary-btn">Explore Tools</a>
+        </div>
+    </div>
+
+    <div class="hero-card">
+        <h3>CampusKit V1</h3>
+        <p>Simple academic tools built for real student problems.</p>
+
+    <div class="pdf-preview">
+
+        <div class="pdf-top"></div>
+
+        <div class="pdf-content">
+
+            <h4>Assignment Cover Page</h4>
+
+            <p>Computer Science Assignment</p>
+
+            <div class="pdf-lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div class="pdf-badge">
+                PDF Ready
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<section class="tools" id="tools">
+    <h2>Student Toolkit</h2>
+    <p class="section-subtitle">Useful tools that save time before deadlines.</p>
+
+    <div class="tool-grid">
+        <div class="tool-card active">
+            <span class="tool-icon">PDF</span>
+            <h3>Cover Page Generator</h3>
+            <p>Create clean assignment cover pages in seconds.</p>
+            <a href="/cover-page">Use Tool -></a>
+        </div>
+
+        <div class="tool-card active">
+            <span class="tool-icon">PDF</span>
+            <h3>PDF Merger</h3>
+            <p>Combine multiple assignment PDFs into one file.</p>
+            <a href="/merge-pdf">Use Tool -></a>
+        </div>
+
+        <div class="tool-card active">
+            <span class="tool-icon">ZIP</span>
+            <h3>PDF Compressor</h3>
+            <p>Reduce PDF size for WhatsApp, LMS, and email uploads.</p>
+            <a href="/compress-pdf">Use Tool -></a>
+        </div>
+
+        <div class="tool-card active">
+            <span class="tool-icon">CAL</span>
+            <h3>Timetable Generator</h3>
+            <p>Create a clean weekly class timetable PDF in minutes.</p>
+            <a href="/timetable">Use Tool -></a>
+        </div>
+    </div>
+</section>
+
+<section class="recent-files">
+    <h2>Recent Downloads</h2>
+
+    {% if recent_files %}
+        <ul>
+            {% for file in recent_files %}
+                <li>
+                    <span>{{ file }}</span>
+                    <a href="{{ url_for('static', filename='downloads/' + file) }}" download>
+                        Download
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No recent files yet. Generate a cover page to see it here.</p>
+    {% endif %}
+</section>
+
+<section class="about-section" id="about">
+    <div class="about-card">
+        <span class="badge">Founder</span>
+        <h2>Built by Ali Raza</h2>
+        <p>
+            I am a BS Computer Science student learning Python, AI automation, and product building.
+            CampusKit is my student-focused SaaS project built to solve real academic problems faced by students in Pakistan.
+        </p>
+
+        <div class="about-points">
+            <div>Python Builder</div>
+            <div>CS Student</div>
+            <div>Building useful tools</div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <p>&copy; 2026 CampusKit - Built by Ali Raza</p>
+</footer>
+
+</body>
+</html>

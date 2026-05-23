@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Template | CampusKit</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f8fafc;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+            margin:0;
+            padding:20px;
+        }
+
+        .premium-box{
+            background:white;
+            max-width:550px;
+            width:100%;
+            padding:40px;
+            border-radius:20px;
+            box-shadow:0 10px 30px rgba(0,0,0,0.08);
+            text-align:center;
+        }
+
+        .premium-badge{
+            background:#2563eb;
+            color:white;
+            display:inline-block;
+            padding:8px 18px;
+            border-radius:999px;
+            font-size:14px;
+            margin-bottom:20px;
+        }
+
+        h1{
+            color:#0f172a;
+            margin-bottom:15px;
+        }
+
+        p{
+            color:#475569;
+            line-height:1.7;
+        }
+
+        ul{
+            text-align:left;
+            margin-top:25px;
+            margin-bottom:30px;
+        }
+
+        li{
+            margin-bottom:12px;
+            color:#0f172a;
+        }
+
+        .pay-box{
+            background:#eff6ff;
+            padding:18px;
+            border-radius:14px;
+            margin-top:25px;
+        }
+
+        .btn{
+            display:inline-block;
+            margin-top:25px;
+            background:#2563eb;
+            color:white;
+            padding:14px 24px;
+            border-radius:12px;
+            text-decoration:none;
+            font-weight:bold;
+        }
+
+        .btn:hover{
+            opacity:0.9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="premium-box">
+
+    <div class="premium-badge">
+        Premium Template
+    </div>
+
+    <h1>Premium Templates Coming Soon</h1>
+
+    <p>
+        The <strong>{{ template_name }}</strong> template is available only for CampusKit Premium users.
+    </p>
+
+    <ul>
+        <li>Premium assignment cover templates</li>
+        <li>Cleaner and modern designs</li>
+        <li>More templates coming soon</li>
+        <li>Support CampusKit development</li>
+    </ul>
+
+    <div class="pay-box">
+        <h3>Premium system is disabled for now</h3>
+
+        <p>
+            CampusKit is still in development, so premium access is not active yet.
+        </p>
+    </div>
+
+    <a href="/cover-page" class="btn">
+        Back to Cover Generator
+    </a>
+
+</div>
+
+</body>
+</html>

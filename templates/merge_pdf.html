@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9EJXJQ2210"></script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag(){
+      dataLayer.push(arguments);
+  }
+
+  gtag('js', new Date());
+
+  gtag('config', 'G-9EJXJQ2210');
+</script>
+    <meta charset="UTF-8">
+    <title>PDF Merger | CampusKit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="/" class="logo">CampusKit</a>
+    <a href="/" class="nav-btn">Home</a>
+</nav>
+
+<section class="form-section">
+    <div class="form-header">
+        <span class="badge">Free Tool</span>
+        <h1>PDF Merger</h1>
+        <p>Upload multiple PDFs and combine them into one file.</p>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" class="premium-form">
+        <label>Select PDF Files</label>
+        <input type="file" name="pdf_files" accept="application/pdf" multiple required>
+
+        <button type="submit" class="submit-btn">Merge PDFs</button>
+    </form>
+</section>
+
+</body>
+</html>

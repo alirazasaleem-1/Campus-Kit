@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Timetable Generator | CampusKit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<script>
+
+let classCount = 1;
+const maxClasses = 15;
+
+function addClassRow() {
+
+    if (classCount >= maxClasses) {
+        alert("Maximum 15 classes allowed.");
+        return;
+    }
+
+    classCount++;
+
+    const container = document.getElementById("classes-container");
+
+    const classHTML = `
+    <div class="class-row">
+        <h3>Class ${classCount}</h3>
+
+        <div class="form-grid">
+
+            <div>
+                <label>Day</label>
+                <select name="day_${classCount}">
+                    <option value="">Select Day</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Saturday</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Subject</label>
+                <input type="text" name="subject_${classCount}" placeholder="Programming Fundamentals">
+            </div>
+
+            <div>
+                <label>Start Time</label>
+                <input type="time" name="start_time_${classCount}">
+            </div>
+
+            <div>
+                <label>End Time</label>
+                <input type="time" name="end_time_${classCount}">
+            </div>
+
+            <div>
+                <label>Teacher Optional</label>
+                <input type="text" name="teacher_${classCount}" placeholder="Sir / Madam Name">
+            </div>
+
+            <div>
+                <label>Location Optional</label>
+                <input type="text" name="location_${classCount}" placeholder="Room / Lab">
+            </div>
+
+        </div>
+    </div>
+    `;
+
+    container.insertAdjacentHTML("beforeend", classHTML);
+}
+
+</script>
+<body>
+
+<nav class="navbar">
+    <a href="/" class="logo">CampusKit</a>
+    <a href="/" class="nav-btn">Home</a>
+</nav>
+
+<section class="form-section">
+    <div class="form-header">
+        <span class="badge">Free Tool</span>
+        <h1>Timetable Generator</h1>
+        <p>Enter your class details and download a clean weekly timetable PDF.</p>
+    </div>
+
+    <form method="POST" class="premium-form">
+
+        <div class="form-grid">
+            <div>
+                <label>Student Name</label>
+                <input type="text" name="student_name" placeholder="Ali Raza" required>
+            </div>
+
+            <div>
+                <label>University</label>
+                <input type="text" name="university" placeholder="University of Agriculture Faisalabad" required>
+            </div>
+        </div>
+
+        <div>
+            <label>Department / Program</label>
+            <input type="text" name="department" placeholder="BS Computer Science" required>
+        </div>
+
+        <h2 style="margin: 20px 0 15px;">Class Details</h2>
+
+        <p style="color:#64748b; margin-bottom:20px;">
+            Fill only the important fields. Teacher and location are optional.
+        </p>
+
+        <div id="classes-container">
+
+            <div class="class-row">
+                <h3>Class 1</h3>
+
+                <div class="form-grid">
+
+                    <div>
+                        <label>Day</label>
+                        <select name="day_1">
+                            <option value="">Select Day</option>
+                            <option>Monday</option>
+                            <option>Tuesday</option>
+                            <option>Wednesday</option>
+                            <option>Thursday</option>
+                            <option>Friday</option>
+                            <option>Saturday</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Subject</label>
+                        <input type="text" name="subject_1" placeholder="Programming Fundamentals">
+                    </div>
+
+                    <div>
+                        <label>Start Time</label>
+                        <input type="time" name="start_time_1">
+                    </div>
+
+                    <div>
+                        <label>End Time</label>
+                        <input type="time" name="end_time_1">
+                    </div>
+
+                    <div>
+                        <label>Teacher Optional</label>
+                        <input type="text" name="teacher_1" placeholder="Sir / Madam Name">
+                    </div>
+
+                    <div>
+                        <label>Location Optional</label>
+                        <input type="text" name="location_1" placeholder="Room / Lab">
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <button type="button" class="add-class-btn" onclick="addClassRow()">
+            + Add Another Class
+        </button>
+
+        <button type="submit" class="submit-btn">Generate Timetable PDF</button>
+
+    </form>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Compression Complete | CampusKit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="/" class="logo">CampusKit</a>
+    <a href="/compress-pdf" class="nav-btn">Compress Again</a>
+</nav>
+
+<section class="form-section">
+    <div class="premium-form" style="text-align:center;">
+        <span class="badge">Compression Complete</span>
+
+        <h1>Your PDF is ready</h1>
+
+        <p>Original Size: <strong>{{ original_size }} MB</strong></p>
+        <p>Compressed Size: <strong>{{ compressed_size }} MB</strong></p>
+        {% if saved_percent > 0 %}
+            <p>Reduced By: <strong>{{ saved_percent }}%</strong></p>
+        {% else %}
+            <p><strong>This PDF was already optimized.</strong></p>
+        {% endif %}
+
+        <a class="submit-btn" style="display:block; text-decoration:none; margin-top:25px;"
+           href="{{ url_for('static', filename='downloads/' + filename) }}" download>
+            Download Compressed PDF
+        </a>
+    </div>
+</section>
+
+</body>
+</html>
