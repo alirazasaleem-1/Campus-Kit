@@ -1,4 +1,4 @@
-Flask
-reportlab
-pypdf
-PyPDF2
+Flask==3.1.*
+reportlab==4.4.*
+pypdf==5.6.*
+PyPDF2==3.0.*

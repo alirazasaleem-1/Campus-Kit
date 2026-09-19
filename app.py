@@ -13,10 +13,18 @@ app = Flask(__name__)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-DOWNLOAD_FOLDER = os.path.join(BASE_DIR, "static", "downloads")
-HISTORY_FILE = os.path.join(BASE_DIR, "history.json")
-OUTPUT_FOLDER = os.path.join(BASE_DIR, "generated_pdfs")
-UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads")
+IS_VERCEL = os.environ.get("VERCEL", False)
+
+if IS_VERCEL:
+    DOWNLOAD_FOLDER = "/tmp/downloads"
+    HISTORY_FILE = "/tmp/history.json"
+    OUTPUT_FOLDER = "/tmp/generated_pdfs"
+    UPLOAD_FOLDER = "/tmp/uploads"
+else:
+    DOWNLOAD_FOLDER = os.path.join(BASE_DIR, "static", "downloads")
+    HISTORY_FILE = os.path.join(BASE_DIR, "history.json")
+    OUTPUT_FOLDER = os.path.join(BASE_DIR, "generated_pdfs")
+    UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads")
 
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-secret-key")
 app.config["MAX_CONTENT_LENGTH"] = 20 * 1024 * 1024
