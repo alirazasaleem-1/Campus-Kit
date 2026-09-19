@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% block title %}GPA Calculator | CampusKit{% endblock %}
+
+{% block content %}
+<section class="form-section">
+    <div class="form-header">
+        <span class="badge">Free Tool</span>
+        <h1>GPA / CGPA Calculator</h1>
+        <p>Calculate your semester GPA and cumulative CGPA instantly. HEC 4.0 scale.</p>
+    </div>
+
+    <div class="premium-form gpa-calculator">
+        <div id="semesters">
+            <div class="semester-block" data-semester="1">
+                <h3>Semester 1</h3>
+                <div class="courses">
+                    <div class="course-row">
+                        <div>
+                            <label>Course Name</label>
+                            <input type="text" placeholder="Programming Fundamentals">
+                        </div>
+                        <div>
+                            <label>Credits</label>
+                            <select>
+                                <option value="">Cr. Hr</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3" selected>3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Grade</label>
+                            <select>
+                                <option value="">Grade</option>
+                                <option value="4.0">A+ (4.0)</option>
+                                <option value="4.0">A (4.0)</option>
+                                <option value="3.7">A- (3.7)</option>
+                                <option value="3.3">B+ (3.3)</option>
+                                <option value="3.0">B (3.0)</option>
+                                <option value="2.7">B- (2.7)</option>
+                                <option value="2.3">C+ (2.3)</option>
+                                <option value="2.0">C (2.0)</option>
+                                <option value="1.7">C- (1.7)</option>
+                                <option value="1.3">D+ (1.3)</option>
+                                <option value="1.0">D (1.0)</option>
+                                <option value="0.0">F (0.0)</option>
+                            </select>
+                        </div>
+                        <button type="button" class="remove-btn" onclick="this.closest('.course-row').remove(); calculateGPA();">✕</button>
+                    </div>
+                </div>
+                <button type="button" class="add-class-btn" onclick="addCourse(this)">+ Add Course</button>
+
+                <div class="gpa-result">
+                    <div class="gpa-number" data-gpa>0.00</div>
+                    <div class="gpa-label">Semester GPA</div>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" class="add-class-btn" onclick="addSemester()" style="margin-top: 12px;">+ Add Semester (for CGPA)</button>
+
+        <div class="gpa-result" id="cgpaResult" style="display: none; margin-top: 20px;">
+            <div class="gpa-result-grid">
+                <div class="gpa-result-item">
+                    <div class="gpa-number" id="cgpaValue">0.00</div>
+                    <div class="gpa-label">Cumulative CGPA</div>
+                </div>
+                <div class="gpa-result-item">
+                    <div class="gpa-number" id="totalCredits" style="font-size: 32px;">0</div>
+                    <div class="gpa-label">Total Credit Hours</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let semesterCount = 1;
+
+function addCourse(btn) {
+    const courses = btn.previousElementSibling;
+    const row = document.createElement('div');
+    row.className = 'course-row';
+    row.innerHTML = `
+        <div><label>Course Name</label><input type="text" placeholder="Course Name"></div>
+        <div><label>Credits</label><select>
+            <option value="">Cr. Hr</option><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option>
+        </select></div>
+        <div><label>Grade</label><select>
+            <option value="">Grade</option><option value="4.0">A+ (4.0)</option><option value="4.0">A (4.0)</option><option value="3.7">A- (3.7)</option>
+            <option value="3.3">B+ (3.3)</option><option value="3.0">B (3.0)</option><option value="2.7">B- (2.7)</option>
+            <option value="2.3">C+ (2.3)</option><option value="2.0">C (2.0)</option><option value="1.7">C- (1.7)</option>
+            <option value="1.3">D+ (1.3)</option><option value="1.0">D (1.0)</option><option value="0.0">F (0.0)</option>
+        </select></div>
+        <button type="button" class="remove-btn" onclick="this.closest('.course-row').remove(); calculateGPA();">✕</button>
+    `;
+    courses.appendChild(row);
+    row.querySelectorAll('select').forEach(s => s.addEventListener('change', calculateGPA));
+}
+
+function addSemester() {
+    semesterCount++;
+    const container = document.getElementById('semesters');
+    const block = document.createElement('div');
+    block.className = 'semester-block';
+    block.dataset.semester = semesterCount;
+    block.innerHTML = `
+        <h3>Semester ${semesterCount}</h3>
+        <div class="courses">
+            <div class="course-row">
+                <div><label>Course Name</label><input type="text" placeholder="Course Name"></div>
+                <div><label>Credits</label><select>
+                    <option value="">Cr. Hr</option><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option>
+                </select></div>
+                <div><label>Grade</label><select>
+                    <option value="">Grade</option><option value="4.0">A+ (4.0)</option><option value="4.0">A (4.0)</option><option value="3.7">A- (3.7)</option>
+                    <option value="3.3">B+ (3.3)</option><option value="3.0">B (3.0)</option><option value="2.7">B- (2.7)</option>
+                    <option value="2.3">C+ (2.3)</option><option value="2.0">C (2.0)</option><option value="1.7">C- (1.7)</option>
+                    <option value="1.3">D+ (1.3)</option><option value="1.0">D (1.0)</option><option value="0.0">F (0.0)</option>
+                </select></div>
+                <button type="button" class="remove-btn" onclick="this.closest('.course-row').remove(); calculateGPA();">✕</button>
+            </div>
+        </div>
+        <button type="button" class="add-class-btn" onclick="addCourse(this)">+ Add Course</button>
+        <div class="gpa-result"><div class="gpa-number" data-gpa>0.00</div><div class="gpa-label">Semester GPA</div></div>
+    `;
+    container.appendChild(block);
+    block.querySelectorAll('select').forEach(s => s.addEventListener('change', calculateGPA));
+    document.getElementById('cgpaResult').style.display = 'block';
+    calculateGPA();
+}
+
+function calculateGPA() {
+    let totalCredits = 0, totalPoints = 0;
+
+    document.querySelectorAll('.semester-block').forEach(block => {
+        let semCredits = 0, semPoints = 0;
+        block.querySelectorAll('.course-row').forEach(row => {
+            const selects = row.querySelectorAll('select');
+            const credits = parseFloat(selects[0].value) || 0;
+            const grade = parseFloat(selects[1].value);
+            if (credits > 0 && !isNaN(grade)) {
+                semCredits += credits;
+                semPoints += credits * grade;
+            }
+        });
+        const semGPA = semCredits > 0 ? (semPoints / semCredits).toFixed(2) : '0.00';
+        const gpaDisplay = block.querySelector('[data-gpa]');
+        if (gpaDisplay) gpaDisplay.textContent = semGPA;
+
+        totalCredits += semCredits;
+        totalPoints += semPoints;
+    });
+
+    const cgpa = totalCredits > 0 ? (totalPoints / totalCredits).toFixed(2) : '0.00';
+    document.getElementById('cgpaValue').textContent = cgpa;
+    document.getElementById('totalCredits').textContent = totalCredits;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('select').forEach(s => s.addEventListener('change', calculateGPA));
+});
+</script>
+{% endblock %}

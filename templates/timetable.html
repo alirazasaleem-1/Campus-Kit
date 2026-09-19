@@ -1,86 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Timetable Generator | CampusKit</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<script>
-
-let classCount = 1;
-const maxClasses = 15;
-
-function addClassRow() {
-
-    if (classCount >= maxClasses) {
-        alert("Maximum 15 classes allowed.");
-        return;
-    }
-
-    classCount++;
-
-    const container = document.getElementById("classes-container");
-
-    const classHTML = `
-    <div class="class-row">
-        <h3>Class ${classCount}</h3>
-
-        <div class="form-grid">
-
-            <div>
-                <label>Day</label>
-                <select name="day_${classCount}">
-                    <option value="">Select Day</option>
-                    <option>Monday</option>
-                    <option>Tuesday</option>
-                    <option>Wednesday</option>
-                    <option>Thursday</option>
-                    <option>Friday</option>
-                    <option>Saturday</option>
-                </select>
-            </div>
-
-            <div>
-                <label>Subject</label>
-                <input type="text" name="subject_${classCount}" placeholder="Programming Fundamentals">
-            </div>
-
-            <div>
-                <label>Start Time</label>
-                <input type="time" name="start_time_${classCount}">
-            </div>
-
-            <div>
-                <label>End Time</label>
-                <input type="time" name="end_time_${classCount}">
-            </div>
-
-            <div>
-                <label>Teacher Optional</label>
-                <input type="text" name="teacher_${classCount}" placeholder="Sir / Madam Name">
-            </div>
-
-            <div>
-                <label>Location Optional</label>
-                <input type="text" name="location_${classCount}" placeholder="Room / Lab">
-            </div>
-
-        </div>
-    </div>
-    `;
-
-    container.insertAdjacentHTML("beforeend", classHTML);
-}
-
-</script>
-<body>
-
-<nav class="navbar">
-    <a href="/" class="logo">CampusKit</a>
-    <a href="/" class="nav-btn">Home</a>
-</nav>
-
+{% extends "base.html" %}
+{% block title %}Timetable Generator | CampusKit{% endblock %}
+{% block content %}
 <section class="form-section">
     <div class="form-header">
         <span class="badge">Free Tool</span>
@@ -171,6 +91,59 @@ function addClassRow() {
 
     </form>
 </section>
+{% endblock %}
+{% block scripts %}
+<script>
+let classCount = 1;
+const maxClasses = 15;
 
-</body>
-</html>
+function addClassRow() {
+    if (classCount >= maxClasses) {
+        alert("Maximum 15 classes allowed.");
+        return;
+    }
+    classCount++;
+    const container = document.getElementById("classes-container");
+    const classHTML = `
+    <div class="class-row">
+        <h3>Class ${classCount}</h3>
+        <div class="form-grid">
+            <div>
+                <label>Day</label>
+                <select name="day_${classCount}">
+                    <option value="">Select Day</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Saturday</option>
+                </select>
+            </div>
+            <div>
+                <label>Subject</label>
+                <input type="text" name="subject_${classCount}" placeholder="Programming Fundamentals">
+            </div>
+            <div>
+                <label>Start Time</label>
+                <input type="time" name="start_time_${classCount}">
+            </div>
+            <div>
+                <label>End Time</label>
+                <input type="time" name="end_time_${classCount}">
+            </div>
+            <div>
+                <label>Teacher Optional</label>
+                <input type="text" name="teacher_${classCount}" placeholder="Sir / Madam Name">
+            </div>
+            <div>
+                <label>Location Optional</label>
+                <input type="text" name="location_${classCount}" placeholder="Room / Lab">
+            </div>
+        </div>
+    </div>
+    `;
+    container.insertAdjacentHTML("beforeend", classHTML);
+}
+</script>
+{% endblock %}

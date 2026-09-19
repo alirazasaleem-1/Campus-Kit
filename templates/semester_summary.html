@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}Semester Summary | CampusKit{% endblock %}
+
+{% block content %}
+<section class="form-section">
+    <div class="form-header">
+        <span class="badge">Free Tool</span>
+        <h1>Semester Summary Generator</h1>
+        <p>Generate a professional semester summary PDF with your courses and grades.</p>
+    </div>
+
+    <form method="POST" class="premium-form">
+        <div class="form-grid">
+            <div>
+                <label>Student Name</label>
+                <input type="text" name="student_name" placeholder="Ali Raza" required>
+            </div>
+            <div>
+                <label>Roll Number</label>
+                <input type="text" name="roll_number" placeholder="232117" required>
+            </div>
+            <div>
+                <label>University</label>
+                <input type="text" name="university" placeholder="University of Agriculture Faisalabad" required>
+            </div>
+            <div>
+                <label>Department</label>
+                <input type="text" name="department" placeholder="BS Computer Science" required>
+            </div>
+        </div>
+
+        <div>
+            <label>Semester</label>
+            <input type="text" name="semester" placeholder="Fall 2026 — Semester 3" required>
+        </div>
+
+        <h2 style="margin: 24px 0 16px;">Courses</h2>
+
+        <div id="coursesContainer">
+            <div class="class-row">
+                <h3>Course 1</h3>
+                <div class="form-grid">
+                    <div>
+                        <label>Course Name</label>
+                        <input type="text" name="course_1" placeholder="Data Structures" required>
+                    </div>
+                    <div>
+                        <label>Credit Hours</label>
+                        <select name="credits_1" required>
+                            <option value="">Select</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3" selected>3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Grade</label>
+                        <select name="grade_1" required>
+                            <option value="">Select</option>
+                            <option value="A+">A+</option>
+                            <option value="A">A</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                            <option value="B-">B-</option>
+                            <option value="C+">C+</option>
+                            <option value="C">C</option>
+                            <option value="C-">C-</option>
+                            <option value="D+">D+</option>
+                            <option value="D">D</option>
+                            <option value="F">F</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" class="add-class-btn" onclick="addCourseRow()">+ Add Course</button>
+        <button type="submit" class="submit-btn">Generate Summary PDF</button>
+    </form>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let courseCount = 1;
+function addCourseRow() {
+    if (courseCount >= 10) { alert('Maximum 10 courses.'); return; }
+    courseCount++;
+    const container = document.getElementById('coursesContainer');
+    container.insertAdjacentHTML('beforeend', `
+        <div class="class-row">
+            <h3>Course ${courseCount}</h3>
+            <div class="form-grid">
+                <div><label>Course Name</label><input type="text" name="course_${courseCount}" placeholder="Course Name"></div>
+                <div><label>Credit Hours</label><select name="credits_${courseCount}">
+                    <option value="">Select</option><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option>
+                </select></div>
+                <div><label>Grade</label><select name="grade_${courseCount}">
+                    <option value="">Select</option><option value="A+">A+</option><option value="A">A</option><option value="A-">A-</option>
+                    <option value="B+">B+</option><option value="B">B</option><option value="B-">B-</option>
+                    <option value="C+">C+</option><option value="C">C</option><option value="C-">C-</option>
+                    <option value="D+">D+</option><option value="D">D</option><option value="F">F</option>
+                </select></div>
+            </div>
+        </div>
+    `);
+}
+</script>
+{% endblock %}

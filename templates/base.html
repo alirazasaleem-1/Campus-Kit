@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9EJXJQ2210"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-9EJXJQ2210');
+    </script>
+
+    <meta charset="UTF-8">
+    <title>{% block title %}CampusKit{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block description %}Free student tools — generate assignment cover pages, merge PDFs, compress files, create timetables, calculate GPA. Built for Pakistani university students.{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}CampusKit — Student Tools That Save Time{% endblock %}">
+    <meta property="og:description" content="Generate cover pages, merge PDFs, calculate GPA, and more. Free tools for students.">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#0f172a">
+
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+    {% block head %}{% endblock %}
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="/" class="logo">🎓 CampusKit</a>
+    <div class="nav-links">
+        {% block nav_btn %}
+        <a href="/#tools" class="nav-link">Tools</a>
+        <a href="/#about" class="nav-btn">About</a>
+        {% endblock %}
+    </div>
+</nav>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+    <div class="footer-inner">
+        <p>&copy; 2026 CampusKit — Built with ❤️ by Ali Raza</p>
+        <a href="https://forms.gle/Kd3ZkpNYrfnuBrfp9" target="_blank" class="feedback-link">💬 Feedback</a>
+    </div>
+</footer>
+
+<!-- Loading overlay for form submissions -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Generating your file...</p>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Form loading state
+    document.querySelectorAll('form').forEach(function(form) {
+        form.addEventListener('submit', function() {
+            var btn = form.querySelector('.submit-btn');
+            if (btn) {
+                btn.disabled = true;
+                btn.textContent = 'Processing...';
+            }
+            document.getElementById('loadingOverlay').classList.add('active');
+        });
+    });
+});
+</script>
+{% block scripts %}{% endblock %}
+
+</body>
+</html>

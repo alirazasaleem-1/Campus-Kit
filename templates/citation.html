@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% block title %}Citation Generator | CampusKit{% endblock %}
+
+{% block content %}
+<section class="form-section">
+    <div class="form-header">
+        <span class="badge">Free Tool</span>
+        <h1>Citation / Reference Generator</h1>
+        <p>Generate properly formatted citations for your assignments in APA, MLA, or Harvard style.</p>
+    </div>
+
+    <div class="premium-form">
+        <label>Citation Format</label>
+        <div class="format-tabs">
+            <button type="button" class="format-tab active" data-format="apa">APA 7th</button>
+            <button type="button" class="format-tab" data-format="mla">MLA 9th</button>
+            <button type="button" class="format-tab" data-format="harvard">Harvard</button>
+        </div>
+
+        <label>Source Type</label>
+        <div class="source-tabs">
+            <button type="button" class="source-tab active" data-source="book">📖 Book</button>
+            <button type="button" class="source-tab" data-source="website">🌐 Website</button>
+            <button type="button" class="source-tab" data-source="journal">📰 Journal</button>
+            <button type="button" class="source-tab" data-source="youtube">▶️ YouTube</button>
+        </div>
+
+        <div class="form-grid" id="citationFields">
+            <!-- Dynamically populated based on source type -->
+        </div>
+
+        <button type="button" class="submit-btn" onclick="generateCitation()">Generate Citation</button>
+
+        <div class="citation-output" id="citationOutput" style="display: none;">
+            <button class="copy-btn" onclick="copyCitation()">📋 Copy</button>
+            <p id="citationText"></p>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let currentFormat = 'apa';
+let currentSource = 'book';
+
+const SOURCE_FIELDS = {
+    book: [
+        { name: 'authors', label: 'Author(s)', placeholder: 'Last, First M.' },
+        { name: 'year', label: 'Year', placeholder: '2024' },
+        { name: 'title', label: 'Book Title', placeholder: 'Introduction to Computing' },
+        { name: 'publisher', label: 'Publisher', placeholder: 'Oxford University Press' },
+        { name: 'edition', label: 'Edition (optional)', placeholder: '3rd' },
+    ],
+    website: [
+        { name: 'authors', label: 'Author(s)', placeholder: 'Last, First M. (or Organization)' },
+        { name: 'year', label: 'Year', placeholder: '2024' },
+        { name: 'title', label: 'Page Title', placeholder: 'How AI Works' },
+        { name: 'website', label: 'Website Name', placeholder: 'BBC News' },
+        { name: 'url', label: 'URL', placeholder: 'https://example.com/article' },
+    ],
+    journal: [
+        { name: 'authors', label: 'Author(s)', placeholder: 'Last, First M.' },
+        { name: 'year', label: 'Year', placeholder: '2024' },
+        { name: 'title', label: 'Article Title', placeholder: 'Effects of Climate Change' },
+        { name: 'journal', label: 'Journal Name', placeholder: 'Nature' },
+        { name: 'volume', label: 'Volume(Issue)', placeholder: '12(3)' },
+        { name: 'pages', label: 'Pages', placeholder: '45-67' },
+    ],
+    youtube: [
+        { name: 'authors', label: 'Channel Name', placeholder: 'Fireship' },
+        { name: 'year', label: 'Year', placeholder: '2024' },
+        { name: 'title', label: 'Video Title', placeholder: 'Python in 100 Seconds' },
+        { name: 'url', label: 'URL', placeholder: 'https://youtube.com/watch?v=...' },
+    ],
+};
+
+function renderFields() {
+    const container = document.getElementById('citationFields');
+    const fields = SOURCE_FIELDS[currentSource];
+    container.innerHTML = fields.map(f =>
+        '<div><label>' + f.label + '</label><input type="text" id="field_' + f.name + '" placeholder="' + f.placeholder + '"></div>'
+    ).join('');
+}
+
+function getField(name) {
+    const el = document.getElementById('field_' + name);
+    return el ? el.value.trim() : '';
+}
+
+function generateCitation() {
+    const authors = getField('authors') || 'Unknown';
+    const year = getField('year') || 'n.d.';
+    const title = getField('title') || 'Untitled';
+    let citation = '';
+
+    if (currentFormat === 'apa') {
+        if (currentSource === 'book') {
+            const pub = getField('publisher');
+            const ed = getField('edition');
+            citation = authors + ' (' + year + '). ' + title + (ed ? ' (' + ed + ' ed.)' : '') + '. ' + (pub ? pub + '.' : '');
+        } else if (currentSource === 'website') {
+            const site = getField('website');
+            const url = getField('url');
+            citation = authors + ' (' + year + '). ' + title + '. ' + (site ? site + '. ' : '') + (url ? url : '');
+        } else if (currentSource === 'journal') {
+            const journal = getField('journal');
+            const vol = getField('volume');
+            const pages = getField('pages');
+            citation = authors + ' (' + year + '). ' + title + '. ' + (journal ? journal + ', ' : '') + (vol ? vol + ', ' : '') + (pages ? pages + '.' : '');
+        } else if (currentSource === 'youtube') {
+            const url = getField('url');
+            citation = authors + ' (' + year + '). ' + title + ' [Video]. YouTube. ' + (url || '');
+        }
+    } else if (currentFormat === 'mla') {
+        if (currentSource === 'book') {
+            const pub = getField('publisher');
+            citation = authors + '. ' + title + '. ' + (pub ? pub + ', ' : '') + year + '.';
+        } else if (currentSource === 'website') {
+            const site = getField('website');
+            const url = getField('url');
+            citation = authors + '. \"' + title + '.\" ' + (site ? site + ', ' : '') + year + ', ' + (url || '') + '.';
+        } else if (currentSource === 'journal') {
+            const journal = getField('journal');
+            const vol = getField('volume');
+            const pages = getField('pages');
+            citation = authors + '. \"' + title + '.\" ' + (journal ? journal + ', ' : '') + 'vol. ' + (vol || '') + ', ' + year + ', pp. ' + (pages || '') + '.';
+        } else if (currentSource === 'youtube') {
+            const url = getField('url');
+            citation = authors + '. \"' + title + '.\" YouTube, ' + year + ', ' + (url || '') + '.';
+        }
+    } else if (currentFormat === 'harvard') {
+        if (currentSource === 'book') {
+            const pub = getField('publisher');
+            const ed = getField('edition');
+            citation = authors + ' (' + year + ') ' + title + '. ' + (ed ? ed + ' edn. ' : '') + (pub ? pub + '.' : '');
+        } else if (currentSource === 'website') {
+            const site = getField('website');
+            const url = getField('url');
+            citation = authors + ' (' + year + ') ' + title + '. ' + (site ? site + '. ' : '') + 'Available at: ' + (url || '') + '.';
+        } else if (currentSource === 'journal') {
+            const journal = getField('journal');
+            const vol = getField('volume');
+            const pages = getField('pages');
+            citation = authors + ' (' + year + ') \'' + title + '\', ' + (journal ? journal + ', ' : '') + (vol || '') + ', pp. ' + (pages || '') + '.';
+        } else if (currentSource === 'youtube') {
+            const url = getField('url');
+            citation = authors + ' (' + year + ') ' + title + '. [Online Video]. Available at: ' + (url || '') + '.';
+        }
+    }
+
+    document.getElementById('citationText').textContent = citation;
+    document.getElementById('citationOutput').style.display = 'block';
+}
+
+function copyCitation() {
+    const text = document.getElementById('citationText').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.textContent = '✅ Copied!';
+        setTimeout(() => { btn.textContent = '📋 Copy'; }, 2000);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    renderFields();
+
+    document.querySelectorAll('.format-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            document.querySelectorAll('.format-tab').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            currentFormat = this.dataset.format;
+        });
+    });
+
+    document.querySelectorAll('.source-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            document.querySelectorAll('.source-tab').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            currentSource = this.dataset.source;
+            renderFields();
+            document.getElementById('citationOutput').style.display = 'none';
+        });
+    });
+});
+</script>
+{% endblock %}

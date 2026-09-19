@@ -1,33 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9EJXJQ2210"></script>
-
-<script>
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag(){
-      dataLayer.push(arguments);
-  }
-
-  gtag('js', new Date());
-
-  gtag('config', 'G-9EJXJQ2210');
-</script>
-
-    <meta charset="UTF-8">
-    <title>CampusKit | Student Tools That Save Time</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-
-<nav class="navbar">
-    <a href="/" class="logo">CampusKit</a>
-    <a href="#about" class="nav-btn">About Me</a>
-</nav>
-
+{% extends "base.html" %}
+{% block title %}CampusKit | Student Tools That Save Time{% endblock %}
+{% block nav_btn %}<a href="#about" class="nav-btn">About Me</a>{% endblock %}
+{% block content %}
 <section class="hero">
     <div class="hero-content">
         <span class="badge">Built for Pakistani Students</span>
@@ -46,28 +20,29 @@
         <h3>CampusKit V1</h3>
         <p>Simple academic tools built for real student problems.</p>
 
-    <div class="pdf-preview">
+        <div class="pdf-preview">
 
-        <div class="pdf-top"></div>
+            <div class="pdf-top"></div>
 
-        <div class="pdf-content">
+            <div class="pdf-content">
 
-            <h4>Assignment Cover Page</h4>
+                <h4>Assignment Cover Page</h4>
 
-            <p>Computer Science Assignment</p>
+                <p>Computer Science Assignment</p>
 
-            <div class="pdf-lines">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+                <div class="pdf-lines">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
 
-            <div class="pdf-badge">
-                PDF Ready
+                <div class="pdf-badge">
+                    PDF Ready
+                </div>
+
             </div>
 
         </div>
-
     </div>
 </section>
 
@@ -76,32 +51,53 @@
     <p class="section-subtitle">Useful tools that save time before deadlines.</p>
 
     <div class="tool-grid">
-        <div class="tool-card active">
-            <span class="tool-icon">PDF</span>
+        <div class="tool-card">
+            <span class="tool-icon">📄</span>
             <h3>Cover Page Generator</h3>
             <p>Create clean assignment cover pages in seconds.</p>
             <a href="/cover-page">Use Tool -></a>
         </div>
 
-        <div class="tool-card active">
-            <span class="tool-icon">PDF</span>
+        <div class="tool-card">
+            <span class="tool-icon">📑</span>
             <h3>PDF Merger</h3>
             <p>Combine multiple assignment PDFs into one file.</p>
             <a href="/merge-pdf">Use Tool -></a>
         </div>
 
-        <div class="tool-card active">
-            <span class="tool-icon">ZIP</span>
+        <div class="tool-card">
+            <span class="tool-icon">📦</span>
             <h3>PDF Compressor</h3>
             <p>Reduce PDF size for WhatsApp, LMS, and email uploads.</p>
             <a href="/compress-pdf">Use Tool -></a>
         </div>
 
-        <div class="tool-card active">
-            <span class="tool-icon">CAL</span>
+        <div class="tool-card">
+            <span class="tool-icon">📅</span>
             <h3>Timetable Generator</h3>
             <p>Create a clean weekly class timetable PDF in minutes.</p>
             <a href="/timetable">Use Tool -></a>
+        </div>
+
+        <div class="tool-card">
+            <span class="tool-icon">🎯</span>
+            <h3>GPA Calculator</h3>
+            <p>Calculate your semester GPA quickly and accurately.</p>
+            <a href="/gpa">Use Tool -></a>
+        </div>
+
+        <div class="tool-card">
+            <span class="tool-icon">📚</span>
+            <h3>Citation Generator</h3>
+            <p>Generate precise citations for your academic papers.</p>
+            <a href="/citation">Use Tool -></a>
+        </div>
+
+        <div class="tool-card">
+            <span class="tool-icon">📊</span>
+            <h3>Semester Summary</h3>
+            <p>Get a quick overview of your semester progress.</p>
+            <a href="/semester-summary">Use Tool -></a>
         </div>
     </div>
 </section>
@@ -141,14 +137,4 @@
         </div>
     </div>
 </section>
-
-<footer class="footer">
-    <p>&copy; 2026 CampusKit - Built by Ali Raza</p>
-</footer>
-
-<a href="https://forms.gle/Kd3ZkpNYrfnuBrfp9" target="_blank" class="feedback-btn">
-  💬 Report Bug / Suggest Feature
-</a> 
-  
-</body>
-</html>
+{% endblock %}

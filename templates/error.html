@@ -1,27 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>CampusKit | Something went wrong</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-
-<nav class="navbar">
-    <a href="/" class="logo">CampusKit</a>
-    <a href="/" class="nav-btn">Home</a>
-</nav>
-
+{% extends "base.html" %}
+{% block title %}CampusKit | Something went wrong{% endblock %}
+{% block content %}
 <section class="form-section">
-    <div class="form-header">
+    <div class="form-header" style="text-align: center;">
+        <div style="font-size: 64px; margin-bottom: 20px;">⚠️</div>
         <span class="badge">Notice</span>
         <h1>Something needs attention</h1>
         <p>{{ message }}</p>
     </div>
 
-    <a href="/" class="primary-btn">Back to Home</a>
+    <div style="text-align: center;">
+        <a href="/" class="primary-btn">Back to Home</a>
+    </div>
 </section>
-
-</body>
-</html>
+{% endblock %}
